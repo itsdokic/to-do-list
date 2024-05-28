@@ -1,0 +1,41 @@
+.taskItem {
+    display: flex;
+    align-items: center;
+    border: solid;
+    border-color: rgba(255, 255, 255, 0.632);
+    border-radius: 20px;
+    border-width: 1px;
+    color: white;
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+.uncompletedTask {
+    margin: 12px;
+    margin-left: 15px;
+}
+
+.completedTask {
+    margin: 12px;
+    margin-left: 15px;
+    text-decoration: line-through;
+    color: rgb(171, 166, 166);
+}
+
+.taskItem .MuiIconButton-root {
+    color: white;
+    margin-left: auto;
+}
+
+.taskItem .MuiSvgIcon-root {
+    font-size: 40px;
+}
+
+@media screen and (max-width: 900px) {
+    .taskItem {
+        font-size: 20px;
+    }
+    .taskItem .MuiSvgIcon-root {
+        font-size: 30px;
+    }
+}

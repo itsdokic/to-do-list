@@ -1,0 +1,103 @@
+.formFrame {
+    width: 100%;
+}
+
+#formInput {
+    height: 30px;
+    font-size: 30px;
+}
+
+.category {
+    font-size: 25px;
+    width: 140px;
+    height: 60px;
+    border: none;
+    background-color: transparent;
+    border-left: 1px solid;
+    border-color: rgba(255, 255, 255, 0.633);
+    margin-right: 20px;
+    padding-left: 10px;
+    color: white;
+}
+
+.category option {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+
+.category .disabled {
+    color: rgb(132, 132, 132);
+}
+
+.formFrame .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    font-size: 50px;
+}
+
+.formFrame .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.63);
+    border-width: 1px; 
+    border-style: solid; 
+    border-radius: 20px; 
+    box-shadow: none;
+}
+  
+.formFrame .MuiOutlinedInput-root:not(.Mui-focused):hover .MuiOutlinedInput-notchedOutline {
+    border-color: white;
+}
+  
+.formFrame .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: white;
+}
+
+.formFrame .MuiOutlinedInput-input::placeholder {
+    color: white;
+}
+
+.formFrame .MuiOutlinedInput-input:not(:placeholder-shown) {
+    color: white;
+}
+
+.formFrame .MuiIconButton-root {
+    color: white;
+}
+
+.formFrame .MuiSvgIcon-root {
+    font-size: 40px;
+}
+
+#validationMessage {
+    color: rgb(180, 0, 0);
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+
+.dividerLine {
+    margin-bottom: 70px;
+}
+
+@media screen and (max-width: 900px) {
+    #formInput {
+        height: 15px;
+        font-size: 20px;
+    }
+    .formFrame .MuiSvgIcon-root {
+        font-size: 30px;
+    }
+    .category {
+        font-size: 15px;
+        width: 100px;
+        margin-right: 0;
+        height: 45px;
+    }
+    #validationMessage {
+        font-size: 15px;
+        margin-bottom: 25px;
+    }
+    .dividerLine {
+        margin-bottom: 60px;
+    }
+}
