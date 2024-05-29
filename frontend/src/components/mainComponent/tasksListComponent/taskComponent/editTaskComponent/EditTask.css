@@ -1,0 +1,26 @@
+.editFormFrame {
+    width: 500px;
+}
+
+#editFormInput {
+    font-size: 20px;
+}
+
+#editIcon {
+    font-size: 30px;
+    color: black;
+}
+
+
+@media screen and (max-width: 900px) {
+    .editFormFrame {
+        width: 250px;
+    }
+    #editFormInput {
+        font-size: 15px;
+    }
+    #editIcon {
+        font-size: 25px;
+        color: black;
+    }
+}

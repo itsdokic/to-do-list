@@ -8,11 +8,18 @@
     color: white;
     font-size: 30px;
     margin-top: 30px;
+    word-break: break-all;
 }
 
 .uncompletedTask {
     margin: 12px;
     margin-left: 15px;
+}
+
+.uncompletedTask:hover {
+    cursor: pointer;
+    color: rgb(227, 227, 227);
+    transition: 0.3s;
 }
 
 .completedTask {
@@ -22,9 +29,18 @@
     color: rgb(171, 166, 166);
 }
 
+.completedTask:hover {
+    cursor: pointer;
+}
+
+.buttons {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
 .taskItem .MuiIconButton-root {
     color: white;
-    margin-left: auto;
 }
 
 .taskItem .MuiSvgIcon-root {
