@@ -32,7 +32,7 @@ function Main() {
     
     async function getTasks(userId) {
         if (tasksFilter === "All") {
-            await axios.get(`http://localhost:5000/getTasks/${userId}`)
+            await axios.get(`https://to-do-list-46n0.onrender.com/getTasks/${userId}`)
             .then(
                 (response) => {
                     setTasks(response.data)
@@ -43,7 +43,7 @@ function Main() {
             )
         }
         else {
-            await axios.get("http://localhost:5000/getFilteredTasks", {
+            await axios.get("https://to-do-list-46n0.onrender.com/getFilteredTasks", {
                 params: {
                     userId: userId,
                     category: tasksFilter

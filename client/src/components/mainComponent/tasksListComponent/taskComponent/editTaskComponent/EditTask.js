@@ -28,7 +28,7 @@ function EdiTask(props) {
         const editedTaskName = input.value.trim();
 
         if (editedTaskName !== "" && editedTaskName !== props.task) {
-            await axios.post("http://localhost:5000/editTask", {
+            await axios.post("https://to-do-list-46n0.onrender.com/editTask", {
             taskId: props.taskId,  
             task: editedTaskName,
             })

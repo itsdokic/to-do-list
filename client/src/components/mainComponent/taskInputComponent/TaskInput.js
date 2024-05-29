@@ -20,7 +20,7 @@ function TaskInput(props) {
     
         if (newTaskName !== "" && newTaskCategory !== "") {
 
-          await axios.post("http://localhost:5000/addtask", {
+          await axios.post("https://to-do-list-46n0.onrender.com/addtask", {
             user_id: userId,  
             task: newTaskName,
             category: newTaskCategory
