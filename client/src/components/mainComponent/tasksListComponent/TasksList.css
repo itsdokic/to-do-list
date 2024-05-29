@@ -1,0 +1,37 @@
+.categoryFilter {
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    margin-left: auto;
+}
+
+.categoryFilter option{
+    color: black;
+}
+
+.tasksTitle {
+    font-size: 20px;
+    color: white;
+    margin-top: 40px;
+}
+
+.noTasks {
+    font-size: 20px;
+    color: rgb(187, 187, 187);
+    text-align: center;
+    
+}
+
+@media screen and (max-width: 900px) {
+    .categoryFilter {
+        font-size: 15px;
+    }
+    .tasksTitle {
+        font-size: 15px;
+    }
+    .noTasks {
+        font-size: 15px;
+    }
+}

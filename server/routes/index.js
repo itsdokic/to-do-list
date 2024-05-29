@@ -20,7 +20,41 @@ router.post("/addTask", async (req, res) => {
 router.get("/getTasks/:id", async (req, res) => {
  
   try {
-    const tasks = await TaskModel.find({user_id: req.params.id});
+    const userId = req.params.id
+
+    const favoriteTasks = await TaskModel.find({user_id: userId, favorite: true})
+    const uncompletedTasks = await TaskModel.find({user_id: userId, completed: false, favorite: false})
+    const completedTasks = await TaskModel.find({user_id: userId, completed: true, favorite: false})
+    
+    const tasks = {
+      favorite: favoriteTasks,
+      uncompleted: uncompletedTasks,
+      completed: completedTasks
+    }
+
+    res.send(tasks);
+   } catch (error) {
+     res.status(500).send({ error });
+   }
+   
+});
+
+router.get("/getFilteredTasks", async (req, res) => {
+ 
+  try {
+    const userId = req.query.userId
+    const category = req.query.category
+
+    const favoriteTasks = await TaskModel.find({user_id: userId, favorite: true, category: category})
+    const uncompletedTasks = await TaskModel.find({user_id: userId, completed: false, favorite: false, category: category})
+    const completedTasks = await TaskModel.find({user_id: userId, completed: true, favorite: false, category: category})
+    
+    const tasks = {
+      favorite: favoriteTasks,
+      uncompleted: uncompletedTasks,
+      completed: completedTasks
+    }
+
     res.send(tasks);
    } catch (error) {
      res.status(500).send({ error });
@@ -34,7 +68,10 @@ router.post("/completeTask", async (req, res) => {
   try {
     await TaskModel.findByIdAndUpdate(
       taskId,
-      {completed: true}
+      {
+        completed: true,
+        favorite: false
+      }
     );
     res.send(taskId);
   } catch (error) {
