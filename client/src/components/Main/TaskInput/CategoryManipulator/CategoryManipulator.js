@@ -7,7 +7,7 @@ import {
     OutlinedInput,
     Popover,
 } from "@mui/material";
-import { Check } from "@mui/icons-material";
+import { AddCircle, Delete } from "@mui/icons-material";
 import axios from "axios";
 
 import "./CategoryManipulator.css";
@@ -103,7 +103,11 @@ function CategoryManipulator(props) {
                                 }
                                 edge="end"
                             >
-                                <Check id="editIcon" />
+                                {props.action === "add" ? (
+                                    <AddCircle id="editIcon" />
+                                ) : (
+                                    <Delete id="editIcon" />
+                                )}
                             </IconButton>
                         </InputAdornment>
                     }
