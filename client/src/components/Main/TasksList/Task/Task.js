@@ -9,6 +9,7 @@ import EditTask from "./EditTask/EditTask";
 import "./Task.css";
 
 function Task(props) {
+    
     async function completeTask(taskId) {
         if (!props.task.completed) {
             await axios

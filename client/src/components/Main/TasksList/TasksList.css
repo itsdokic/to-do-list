@@ -5,9 +5,10 @@
     font-size: 20px;
     display: flex;
     margin-left: auto;
+    width: 130px;
 }
 
-.categoryFilter option{
+.categoryFilter option {
     color: black;
 }
 
@@ -21,12 +22,12 @@
     font-size: 20px;
     color: rgb(187, 187, 187);
     text-align: center;
-    
 }
 
 @media screen and (max-width: 900px) {
     .categoryFilter {
         font-size: 15px;
+        width: 100px;
     }
     .tasksTitle {
         font-size: 15px;

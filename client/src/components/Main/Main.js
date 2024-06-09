@@ -17,12 +17,16 @@ function Main() {
         uncompleted: [],
         completed: [],
     });
+
+    const [categories, setCategories] = React.useState([]);
+
     const [tasksFilter, setTasksFilter] = React.useState("All");
 
     React.useEffect(() => {
         var userId = localStorage.getItem("userId");
         if (userId) {
             getTasks(userId);
+            getCategories(userId);
         } else {
             userId = generateUserId();
             localStorage.setItem("userId", userId);
@@ -63,11 +67,27 @@ function Main() {
         }
     }
 
+    async function getCategories(userId) {
+        await axios.get(`http://localhost:5000/getCategories/${userId}`).then(
+            (response) => {
+                setCategories(response.data);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+
     return (
         <main>
-            <TaskInput getTasks={(userId) => getTasks(userId)} />
+            <TaskInput
+                getTasks={(userId) => getTasks(userId)}
+                categories={categories}
+                getCategories={(userId) => getCategories(userId)}
+            />
             <TasksList
                 tasks={tasks}
+                categories={categories}
                 tasksFilter={tasksFilter}
                 setTasksFilter={setTasksFilter}
                 getTasks={(userId) => getTasks(userId)}

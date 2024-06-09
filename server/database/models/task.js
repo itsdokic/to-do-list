@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema({
-    user_id: {
+    userId: {
         type: Number,
         required: true,
     },

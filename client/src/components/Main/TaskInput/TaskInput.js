@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
     FormControl,
@@ -10,6 +10,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
 
 import "./TaskInput.css";
+import CategoryManipulator from "./CategoryManipulator/CategoryManipulator";
 
 function TaskInput(props) {
     const userId = localStorage.getItem("userId");
@@ -18,19 +19,20 @@ function TaskInput(props) {
         let validationMessage = event.target
             .closest(".taskInput")
             .querySelector("#validationMessage");
-        const input = event.target
+        const taskInput = event.target
             .closest(".formFrame")
             .querySelector("#formInput");
-        const newTaskName = input.value.trim();
-        const newTaskCategory = event.target
+        const newTaskName = taskInput.value.trim();
+        const categoryInput = event.target
             .closest(".formFrame")
-            .querySelector("#category").value;
+            .querySelector("#category");
+        const newTaskCategory = categoryInput.value;
         console.log(newTaskCategory);
 
         if (newTaskName !== "" && newTaskCategory !== "") {
             await axios
                 .post("http://localhost:5000/addtask", {
-                    user_id: userId,
+                    userId: userId,
                     task: newTaskName,
                     category: newTaskCategory,
                 })
@@ -43,7 +45,8 @@ function TaskInput(props) {
                     }
                 );
 
-            input.value = "";
+            taskInput.value = "";
+            categoryInput.value = "";
             validationMessage.textContent = "‎";
 
             props.getTasks(userId);
@@ -57,6 +60,39 @@ function TaskInput(props) {
         }
     }
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+    const [action, setAction] = useState();
+
+    function openCategoryManipulator(event) {
+        if (event.currentTarget.value === "addCategory") {
+            const categoryInput = event.target
+                .closest(".formFrame")
+                .querySelector("#category");
+
+            categoryInput.value = "";
+
+            setAnchorEl(event.currentTarget);
+            setIsPopoverOpen(true);
+            setAction("add");
+        } else if (event.currentTarget.value === "deleteCategory") {
+            const categoryInput = event.target
+                .closest(".formFrame")
+                .querySelector("#category");
+
+            categoryInput.value = "";
+
+            setAnchorEl(event.currentTarget);
+            setIsPopoverOpen(true);
+            setAction("delete");
+        }
+    }
+
+    function closeCategoryManipulator() {
+        setAnchorEl(null);
+        setIsPopoverOpen(false);
+    }
+
     return (
         <div className="taskInput">
             <FormControl className="formFrame" variant="outlined">
@@ -66,7 +102,11 @@ function TaskInput(props) {
                     placeholder="Enter a title for a task..."
                     endAdornment={
                         <InputAdornment position="end">
-                            <select id="category" className="category">
+                            <select
+                                onChange={openCategoryManipulator}
+                                id="category"
+                                className="category"
+                            >
                                 <option
                                     className="disabled"
                                     value=""
@@ -79,8 +119,30 @@ function TaskInput(props) {
                                 <option value="Shopping">Shopping</option>
                                 <option value="Work">Work</option>
                                 <option value="School">School</option>
-                                <option value="Other">Other</option>
+                                {props.categories.map((category) => (
+                                    <option value={category}>
+                                        {category.category}
+                                    </option>
+                                ))}
+                                <option disabled className="optionsDivider">
+                                    -
+                                </option>
+                                <option value="addCategory">
+                                    Add a new category
+                                </option>
+                                <option value="deleteCategory">
+                                    Delete a category
+                                </option>
                             </select>
+                            <CategoryManipulator
+                                anchorEl={anchorEl}
+                                open={isPopoverOpen}
+                                onClose={closeCategoryManipulator}
+                                action={action}
+                                getCategories={() =>
+                                    props.getCategories(userId)
+                                }
+                            />
                             <IconButton onClick={addTask} edge="end">
                                 <AddCircleIcon />
                             </IconButton>

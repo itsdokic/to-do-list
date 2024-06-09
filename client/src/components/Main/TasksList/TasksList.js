@@ -25,7 +25,9 @@ function TasksList(props) {
                 <option value="Shopping">Shopping</option>
                 <option value="Work">Work</option>
                 <option value="School">School</option>
-                <option value="Other">Other</option>
+                {props.categories.map((category) => (
+                    <option value={category}>{category.category}</option>
+                ))}
             </select>
 
             <p className="tasksTitle">FAVORITE TASKS</p>

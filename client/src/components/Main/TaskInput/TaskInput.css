@@ -25,9 +25,22 @@
     color: rgb(0, 0, 0);
 }
 
-
 .category .disabled {
+    text-align: center;
     color: rgb(132, 132, 132);
+}
+
+.category .optionsDivider {
+    text-align: center;
+    color: rgb(132, 132, 132);
+}
+
+.category .addCategory {
+    color: rgb(0, 83, 0)
+}
+
+.category .deleteCategory {
+    color: rgb(158, 0, 0);
 }
 
 .formFrame .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {

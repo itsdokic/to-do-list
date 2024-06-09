@@ -1,0 +1,25 @@
+.categoryFormFrame {
+    width: 500px;
+}
+
+#categoryFormInput {
+    font-size: 20px;
+}
+
+#editIcon {
+    font-size: 30px;
+    color: black;
+}
+
+@media screen and (max-width: 900px) {
+    .categoryFormFrame {
+        width: 250px;
+    }
+    #categoryFormInput {
+        font-size: 15px;
+    }
+    #editIcon {
+        font-size: 25px;
+        color: black;
+    }
+}

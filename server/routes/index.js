@@ -1,6 +1,7 @@
 import connectDB from "../database/connectionConfig.js";
 import express from "express";
 import TaskModel from "../database/models/task.js";
+import CategoryModel from "../database/models/category.js";
 
 const router = express.Router();
 
@@ -22,16 +23,16 @@ router.get("/getTasks/:id", async (req, res) => {
         const userId = req.params.id;
 
         const favoriteTasks = await TaskModel.find({
-            user_id: userId,
+            userId: userId,
             favorite: true,
         });
         const uncompletedTasks = await TaskModel.find({
-            user_id: userId,
+            userId: userId,
             completed: false,
             favorite: false,
         });
         const completedTasks = await TaskModel.find({
-            user_id: userId,
+            userId: userId,
             completed: true,
             favorite: false,
         });
@@ -54,18 +55,18 @@ router.get("/getFilteredTasks", async (req, res) => {
         const category = req.query.category;
 
         const favoriteTasks = await TaskModel.find({
-            user_id: userId,
+            userId: userId,
             favorite: true,
             category: category,
         });
         const uncompletedTasks = await TaskModel.find({
-            user_id: userId,
+            userId: userId,
             completed: false,
             favorite: false,
             category: category,
         });
         const completedTasks = await TaskModel.find({
-            user_id: userId,
+            userId: userId,
             completed: true,
             favorite: false,
             category: category,
@@ -109,7 +110,7 @@ router.post("/uncompleteTask", async (req, res) => {
 });
 
 router.post("/editTask", async (req, res) => {
-    const taskId = req.body.taskId;
+    const { taskId } = req.body;
     const editedTaskName = req.body.task;
 
     try {
@@ -146,6 +147,41 @@ router.delete("/removeTask/:id", async (req, res) => {
     try {
         await TaskModel.findByIdAndDelete(req.params.id);
         res.send(req.params);
+    } catch (error) {
+        res.status(500).send({ error });
+    }
+});
+
+router.post("/addCategory", async (req, res) => {
+    const category = new CategoryModel(req.body);
+
+    try {
+        await category.save();
+        res.send(category);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+router.post("/deleteCategory", async (req, res) => {
+    const category = req.body.category;
+    const { userId } = req.body;
+
+    try {
+        await CategoryModel.deleteOne({ category: category, userId: userId });
+        res.send(category);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+router.get("/getCategories/:id", async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        const categories = await CategoryModel.find({ userId: userId });
+
+        res.send(categories);
     } catch (error) {
         res.status(500).send({ error });
     }

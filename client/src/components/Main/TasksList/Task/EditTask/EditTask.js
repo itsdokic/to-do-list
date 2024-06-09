@@ -12,7 +12,7 @@ import axios from "axios";
 
 import "./EditTask.css";
 
-function EdiTask(props) {
+function EditTask(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     function openEditTask(event) {
@@ -89,4 +89,4 @@ function EdiTask(props) {
     );
 }
 
-export default EdiTask;
+export default EditTask;
