@@ -6,7 +6,7 @@ import {
     InputAdornment,
     IconButton,
 } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { AddCircle } from "@mui/icons-material";
 import axios from "axios";
 
 import "./TaskInput.css";
@@ -127,10 +127,10 @@ function TaskInput(props) {
                                 <option disabled className="optionsDivider">
                                     -
                                 </option>
-                                <option value="addCategory">
+                                <option value="addCategory" className="addCategory">
                                     Add a new category
                                 </option>
-                                <option value="deleteCategory">
+                                <option value="deleteCategory" className="deleteCategory">
                                     Delete a category
                                 </option>
                             </select>
@@ -144,7 +144,7 @@ function TaskInput(props) {
                                 }
                             />
                             <IconButton onClick={addTask} edge="end">
-                                <AddCircleIcon />
+                                <AddCircle />
                             </IconButton>
                         </InputAdornment>
                     }

@@ -104,9 +104,9 @@ function CategoryManipulator(props) {
                                 edge="end"
                             >
                                 {props.action === "add" ? (
-                                    <AddCircle id="editIcon" />
+                                    <AddCircle id="icon" />
                                 ) : (
-                                    <Delete id="editIcon" />
+                                    <Delete id="icon" />
                                 )}
                             </IconButton>
                         </InputAdornment>
