@@ -27,14 +27,23 @@ function TaskInput(props) {
             .closest(".formFrame")
             .querySelector("#category");
         const newTaskCategory = categoryInput.value;
-        console.log(newTaskCategory);
+        const recurringInput = event.target
+            .closest(".formFrame")
+            .querySelector("#recurring");
+        const newTaskRecurring = recurringInput.value;
 
-        if (newTaskName !== "" && newTaskCategory !== "") {
+        if (
+            newTaskName !== "" &&
+            newTaskCategory !== "" &&
+            newTaskRecurring !== ""
+        ) {
             await axios
                 .post("http://localhost:5000/addtask", {
                     userId: userId,
                     task: newTaskName,
                     category: newTaskCategory,
+                    recurring: newTaskRecurring,
+                    lastRecurred: new Date(),
                 })
                 .then(
                     (response) => {
@@ -47,16 +56,16 @@ function TaskInput(props) {
 
             taskInput.value = "";
             categoryInput.value = "";
+            recurringInput.value = "";
             validationMessage.textContent = "‎";
 
             props.getTasks(userId);
-        } else if (newTaskName === "" && newTaskCategory !== "") {
+        } else if (newTaskName === "") {
             validationMessage.textContent = "Enter a task!";
-        } else if (newTaskCategory === "" && newTaskName !== "") {
+        } else if (newTaskCategory === "") {
             validationMessage.textContent = "Select a category!";
         } else {
-            validationMessage.textContent =
-                "Enter a task and select a category!";
+            validationMessage.textContent = "Select a recurrence!";
         }
     }
 
@@ -105,7 +114,7 @@ function TaskInput(props) {
                             <select
                                 onChange={openCategoryManipulator}
                                 id="category"
-                                className="category"
+                                className="select"
                             >
                                 <option
                                     className="disabled"
@@ -127,10 +136,16 @@ function TaskInput(props) {
                                 <option disabled className="optionsDivider">
                                     -
                                 </option>
-                                <option value="addCategory" className="addCategory">
+                                <option
+                                    value="addCategory"
+                                    className="addCategory"
+                                >
                                     Add a new category
                                 </option>
-                                <option value="deleteCategory" className="deleteCategory">
+                                <option
+                                    value="deleteCategory"
+                                    className="deleteCategory"
+                                >
                                     Delete a category
                                 </option>
                             </select>
@@ -143,6 +158,21 @@ function TaskInput(props) {
                                     props.getCategories(userId)
                                 }
                             />
+                            <select id="recurring" className="select">
+                                <option
+                                    className="disabled"
+                                    value=""
+                                    selected
+                                    disabled
+                                >
+                                    Recurring
+                                </option>
+                                <option value="Never">Never</option>
+                                <option value="Hourly">Hourly</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
                             <IconButton onClick={addTask} edge="end">
                                 <AddCircle />
                             </IconButton>

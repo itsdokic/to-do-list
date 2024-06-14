@@ -187,4 +187,18 @@ router.get("/getCategories/:id", async (req, res) => {
     }
 });
 
+router.post("/recurTask", async (req, res) => {
+    const taskId = req.body.id;
+
+    try {
+        await TaskModel.findByIdAndUpdate(taskId, {
+            completed: false,
+            lastRecurred: new Date(),
+        });
+        res.send(taskId);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 export default router;

@@ -21,6 +21,15 @@ const TaskSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    recurring: {
+        type: String,
+        required: true,
+    },
+    lastRecurred: {
+        type: Date,
+        required: true,
+    }
+
 });
 
 const TaskModel = mongoose.model("Task", TaskSchema);

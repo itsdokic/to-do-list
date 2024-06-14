@@ -1,6 +1,7 @@
 import React from "react";
 
 import Task from "./Task/Task.js";
+import axios from "axios";
 
 import "./TasksList.css";
 
@@ -9,6 +10,49 @@ function TasksList(props) {
 
     function filterTasks(event) {
         props.setTasksFilter(event.target.value);
+    }
+
+    async function recurTask(task) {
+        await axios
+            .post("http://localhost:5000/recurTask", {
+                id: task._id,
+            })
+            .then(
+                (response) => {
+                    console.log("Uspješno");
+                },
+                (error) => {
+                    console.log("Error", error);
+                }
+            );
+    }
+
+    function checkRecurring(task) {
+        const currentTime = new Date();
+        const lastRecurred = new Date(task.lastRecurred);
+        const timeDiff = currentTime.getTime() - lastRecurred.getTime();
+
+        let shouldRecur = false;
+
+        if (task.recurring === "Hourly") {
+            const hoursPassed = timeDiff / (1000 * 3600);
+            shouldRecur = hoursPassed >= 1;
+        } else if (task.recurring === "Daily") {
+            const daysPassed = timeDiff / (1000 * 3600 * 24);
+            shouldRecur = daysPassed >= 1;
+        } else if (task.recurring === "Weekly") {
+            const weeksPassed = timeDiff / (1000 * 3600 * 24 * 7);
+            shouldRecur = weeksPassed >= 1;
+        } else if (task.recurring === "Monthly") {
+            const monthsPassed =
+                (currentTime.getFullYear() - lastRecurred.getFullYear()) * 12 +
+                (currentTime.getMonth() - lastRecurred.getMonth());
+            shouldRecur = monthsPassed >= 1;
+        }
+
+        if (shouldRecur) {
+            recurTask(task);
+        }
     }
 
     return (
@@ -50,9 +94,17 @@ function TasksList(props) {
 
             <p className="tasksTitle">COMPLETED TASKS</p>
             {props.tasks.completed.length > 0 ? (
-                props.tasks.completed.map((task, index) => (
-                    <Task task={task} getTasks={() => props.getTasks(userId)} />
-                ))
+                props.tasks.completed.map(
+                    (task, index) => (
+                        checkRecurring(task),
+                        (
+                            <Task
+                                task={task}
+                                getTasks={() => props.getTasks(userId)}
+                            />
+                        )
+                    )
+                )
             ) : (
                 <p className="noTasks">No completed tasks</p>
             )}
