@@ -23,6 +23,8 @@ function Main() {
 
     const [tasksFilter, setTasksFilter] = React.useState("All");
 
+    const [isLoaded, setIsLoaded] = React.useState(false);
+
     React.useEffect(() => {
         var userId = localStorage.getItem("userId");
         if (userId) {
@@ -39,17 +41,9 @@ function Main() {
         getTasks(userId);
     }, [tasksFilter]);
 
-    function isTasksEmpty(tasks) {
-        return (
-            tasks.favorite.length === 0 &&
-            tasks.uncompleted.length === 0 &&
-            tasks.completed.length === 0
-        );
-    }
-
     async function getTasks(userId) {
         await axios
-            .get("http://localhost:5000/tasks/getTasks", {
+            .get("https://to-do-list-46n0.onrender.com/tasks/getTasks", {
                 params: {
                     userId: userId,
                     category: tasksFilter,
@@ -58,6 +52,7 @@ function Main() {
             .then(
                 (response) => {
                     setTasks(response.data);
+                    setIsLoaded(true);
                 },
                 (error) => {
                     console.log(error);
@@ -67,7 +62,9 @@ function Main() {
 
     async function getCategories(userId) {
         await axios
-            .get(`http://localhost:5000/categories/getCategories/${userId}`)
+            .get(
+                `https://to-do-list-46n0.onrender.com/categories/getCategories/${userId}`
+            )
             .then(
                 (response) => {
                     setCategories(response.data);
@@ -80,25 +77,25 @@ function Main() {
 
     return (
         <main>
-        {isTasksEmpty(tasks) ? (
-            <LoadingMessage />
-        ) : (
-            <>
-                <TaskInput
-                    getTasks={(userId) => getTasks(userId)}
-                    categories={categories}
-                    getCategories={(userId) => getCategories(userId)}
-                />
-                <TasksList
-                    tasks={tasks}
-                    categories={categories}
-                    tasksFilter={tasksFilter}
-                    setTasksFilter={setTasksFilter}
-                    getTasks={(userId) => getTasks(userId)}
-                />
-            </>
-        )}
-    </main>
+            {!isLoaded ? (
+                <LoadingMessage />
+            ) : (
+                <>
+                    <TaskInput
+                        getTasks={(userId) => getTasks(userId)}
+                        categories={categories}
+                        getCategories={(userId) => getCategories(userId)}
+                    />
+                    <TasksList
+                        tasks={tasks}
+                        categories={categories}
+                        tasksFilter={tasksFilter}
+                        setTasksFilter={setTasksFilter}
+                        getTasks={(userId) => getTasks(userId)}
+                    />
+                </>
+            )}
+        </main>
     );
 }
 
