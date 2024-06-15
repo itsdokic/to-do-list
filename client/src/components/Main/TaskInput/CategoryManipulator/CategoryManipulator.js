@@ -30,7 +30,7 @@ function CategoryManipulator(props) {
 
         if (categoryName !== "") {
             await axios
-                .post("http://localhost:5000/addCategory", {
+                .post("http://localhost:5000/categories/addCategory", {
                     userId: userId,
                     category: categoryName,
                 })
@@ -56,7 +56,7 @@ function CategoryManipulator(props) {
 
         if (categoryName !== "") {
             await axios
-                .post("http://localhost:5000/deleteCategory", {
+                .post("http://localhost:5000/categories/deleteCategory", {
                     userId: userId,
                     category: categoryName,
                 })

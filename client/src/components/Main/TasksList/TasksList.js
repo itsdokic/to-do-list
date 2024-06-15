@@ -14,7 +14,7 @@ function TasksList(props) {
 
     async function recurTask(task) {
         await axios
-            .post("http://localhost:5000/recurTask", {
+            .post("http://localhost:5000/tasks/recurTask", {
                 id: task._id,
             })
             .then(

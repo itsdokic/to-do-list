@@ -33,7 +33,7 @@ function EditTask(props) {
 
         if (editedTaskName !== "" && editedTaskName !== props.task) {
             await axios
-                .post("http://localhost:5000/editTask", {
+                .post("http://localhost:5000/tasks/editTask", {
                     taskId: props.taskId,
                     task: editedTaskName,
                 })

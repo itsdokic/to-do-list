@@ -39,8 +39,14 @@ function Main() {
     }, [tasksFilter]);
 
     async function getTasks(userId) {
-        if (tasksFilter === "All") {
-            await axios.get(`http://localhost:5000/getTasks/${userId}`).then(
+        await axios
+            .get("http://localhost:5000/tasks/getTasks", {
+                params: {
+                    userId: userId,
+                    category: tasksFilter,
+                },
+            })
+            .then(
                 (response) => {
                     setTasks(response.data);
                 },
@@ -48,34 +54,19 @@ function Main() {
                     console.log(error);
                 }
             );
-        } else {
-            await axios
-                .get("http://localhost:5000/getFilteredTasks", {
-                    params: {
-                        userId: userId,
-                        category: tasksFilter,
-                    },
-                })
-                .then(
-                    (response) => {
-                        setTasks(response.data);
-                    },
-                    (error) => {
-                        console.log(error);
-                    }
-                );
-        }
     }
 
     async function getCategories(userId) {
-        await axios.get(`http://localhost:5000/getCategories/${userId}`).then(
-            (response) => {
-                setCategories(response.data);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+        await axios
+            .get(`http://localhost:5000/categories/getCategories/${userId}`)
+            .then(
+                (response) => {
+                    setCategories(response.data);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
     }
 
     return (

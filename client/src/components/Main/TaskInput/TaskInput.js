@@ -38,7 +38,7 @@ function TaskInput(props) {
             newTaskRecurring !== ""
         ) {
             await axios
-                .post("http://localhost:5000/addtask", {
+                .post("http://localhost:5000/tasks/addtask", {
                     userId: userId,
                     task: newTaskName,
                     category: newTaskCategory,

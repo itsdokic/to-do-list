@@ -13,7 +13,7 @@ function Task(props) {
     async function completeTask(taskId) {
         if (!props.task.completed) {
             await axios
-                .post("http://localhost:5000/completeTask", {
+                .post("http://localhost:5000/tasks/completeTask", {
                     id: taskId,
                 })
                 .then(
@@ -26,7 +26,7 @@ function Task(props) {
                 );
         } else {
             await axios
-                .post("http://localhost:5000/uncompleteTask", {
+                .post("http://localhost:5000/tasks/uncompleteTask", {
                     id: taskId,
                 })
                 .then(
@@ -45,7 +45,7 @@ function Task(props) {
     async function favorTask(taskId) {
         if (!props.task.favorite) {
             await axios
-                .post("http://localhost:5000/favorTask", {
+                .post("http://localhost:5000/tasks/favorTask", {
                     id: taskId,
                 })
                 .then(
@@ -58,7 +58,7 @@ function Task(props) {
                 );
         } else {
             await axios
-                .post("http://localhost:5000/unfavorTask", {
+                .post("http://localhost:5000/tasks/unfavorTask", {
                     id: taskId,
                 })
                 .then(
@@ -75,7 +75,7 @@ function Task(props) {
     }
 
     async function removeTask(taskId) {
-        await axios.delete(`http://localhost:5000/removeTask/${taskId}`).then(
+        await axios.delete(`http://localhost:5000/tasks/deleteTask/${taskId}`).then(
             (response) => {
                 console.log("Uspješno");
             },
