@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
     FormControl,
@@ -11,9 +11,12 @@ import axios from "axios";
 
 import "./TaskInput.css";
 import CategoryManipulator from "./CategoryManipulator/CategoryManipulator";
+import CustomSnackbar from "../../common/CustomSnackbar/CustomSnackbar";
 
 function TaskInput(props) {
     const userId = localStorage.getItem("userId");
+    const [responseMessage, setResponseMessage] = React.useState("");
+    const [snackbarSeverity, setSnackbarSeverity] = React.useState("");
 
     async function addTask(event) {
         let validationMessage = event.target
@@ -47,10 +50,12 @@ function TaskInput(props) {
                 })
                 .then(
                     (response) => {
-                        console.log("Uspješno");
+                        setResponseMessage(response.data);
+                        setSnackbarSeverity("success");
                     },
                     (error) => {
-                        console.log("Error", error);
+                        setResponseMessage(error.response.data);
+                        setSnackbarSeverity("error");
                     }
                 );
 
@@ -69,9 +74,9 @@ function TaskInput(props) {
         }
     }
 
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-    const [action, setAction] = useState();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
+    const [action, setAction] = React.useState();
 
     function openCategoryManipulator(event) {
         if (event.currentTarget.value === "addCategory") {
@@ -174,7 +179,7 @@ function TaskInput(props) {
                                 <option value="Monthly">Monthly</option>
                             </select>
                             <IconButton onClick={addTask} edge="end">
-                                <AddCircle />
+                                <AddCircle className="addIcon" />
                             </IconButton>
                         </InputAdornment>
                     }
@@ -182,6 +187,13 @@ function TaskInput(props) {
             </FormControl>
             <p id="validationMessage">‎</p>
             <hr className="dividerLine"></hr>
+            {responseMessage !== "" ? (
+                <CustomSnackbar
+                    message={responseMessage}
+                    severity={snackbarSeverity}
+                    setResponseMessage={setResponseMessage}
+                />
+            ) : null}
         </div>
     );
 }

@@ -9,7 +9,6 @@ import EditTask from "./EditTask/EditTask";
 import "./Task.css";
 
 function Task(props) {
-    
     async function completeTask(taskId) {
         if (!props.task.completed) {
             await axios
@@ -74,15 +73,19 @@ function Task(props) {
         props.getTasks();
     }
 
-    async function removeTask(taskId) {
-        await axios.delete(`http://localhost:5000/tasks/deleteTask/${taskId}`).then(
-            (response) => {
-                console.log("Uspješno");
-            },
-            (error) => {
-                console.log("Error", error);
-            }
-        );
+    async function deleteTask(taskId) {
+        await axios
+            .delete(`http://localhost:5000/tasks/deleteTask/${taskId}`)
+            .then(
+                (response) => {
+                    props.setResponseMessage(response.data);
+                    props.setSnackbarSeverity("success");
+                },
+                (error) => {
+                    props.setResponseMessage(error.response.data);
+                    props.setSnackbarSeverity("error");
+                }
+            );
 
         props.getTasks();
     }
@@ -105,10 +108,14 @@ function Task(props) {
                     getTasks={() => props.getTasks()}
                 />
                 <IconButton onClick={() => favorTask(props.task._id)}>
-                    {props.task.favorite ? <Star /> : <StarOutline />}
+                    {props.task.favorite ? (
+                        <Star className="icon" />
+                    ) : (
+                        <StarOutline className="icon" />
+                    )}
                 </IconButton>
-                <IconButton onClick={() => removeTask(props.task._id)}>
-                    <Delete />
+                <IconButton onClick={() => deleteTask(props.task._id)}>
+                    <Delete className="icon" />
                 </IconButton>
             </div>
         </div>

@@ -2,6 +2,7 @@ import React from "react";
 
 import axios from "axios";
 
+import LoadingMessage from "./LoadingMessage/LoadingMessage";
 import TaskInput from "./TaskInput/TaskInput";
 import TasksList from "./TasksList/TasksList";
 
@@ -38,6 +39,14 @@ function Main() {
         getTasks(userId);
     }, [tasksFilter]);
 
+    function isTasksEmpty(tasks) {
+        return (
+            tasks.favorite.length === 0 &&
+            tasks.uncompleted.length === 0 &&
+            tasks.completed.length === 0
+        );
+    }
+
     async function getTasks(userId) {
         await axios
             .get("http://localhost:5000/tasks/getTasks", {
@@ -71,19 +80,25 @@ function Main() {
 
     return (
         <main>
-            <TaskInput
-                getTasks={(userId) => getTasks(userId)}
-                categories={categories}
-                getCategories={(userId) => getCategories(userId)}
-            />
-            <TasksList
-                tasks={tasks}
-                categories={categories}
-                tasksFilter={tasksFilter}
-                setTasksFilter={setTasksFilter}
-                getTasks={(userId) => getTasks(userId)}
-            />
-        </main>
+        {isTasksEmpty(tasks) ? (
+            <LoadingMessage />
+        ) : (
+            <>
+                <TaskInput
+                    getTasks={(userId) => getTasks(userId)}
+                    categories={categories}
+                    getCategories={(userId) => getCategories(userId)}
+                />
+                <TasksList
+                    tasks={tasks}
+                    categories={categories}
+                    tasksFilter={tasksFilter}
+                    setTasksFilter={setTasksFilter}
+                    getTasks={(userId) => getTasks(userId)}
+                />
+            </>
+        )}
+    </main>
     );
 }
 

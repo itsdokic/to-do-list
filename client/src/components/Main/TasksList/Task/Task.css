@@ -43,7 +43,7 @@
     color: white;
 }
 
-.taskItem .MuiSvgIcon-root {
+.taskItem .icon {
     font-size: 40px;
 }
 
@@ -51,7 +51,7 @@
     .taskItem {
         font-size: 20px;
     }
-    .taskItem .MuiSvgIcon-root {
+    .taskItem .icon {
         font-size: 30px;
     }
 }

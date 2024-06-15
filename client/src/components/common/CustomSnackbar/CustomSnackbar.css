@@ -1,0 +1,17 @@
+.snackbar {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.snackbarAlert {
+    width: 100%;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 480px) {
+    .snackbar {
+        max-width: 80%;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}

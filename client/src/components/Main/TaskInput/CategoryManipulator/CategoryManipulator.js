@@ -11,9 +11,12 @@ import { AddCircle, Delete } from "@mui/icons-material";
 import axios from "axios";
 
 import "./CategoryManipulator.css";
+import CustomSnackbar from "../../../common/CustomSnackbar/CustomSnackbar";
 
 function CategoryManipulator(props) {
     const [anchorEl, setAnchorEl] = React.useState(props.anchorEl);
+    const [responseMessage, setResponseMessage] = React.useState("");
+    const [snackbarSeverity, setSnackbarSeverity] = React.useState("");
     const userId = localStorage.getItem("userId");
 
     useEffect(() => {
@@ -36,10 +39,12 @@ function CategoryManipulator(props) {
                 })
                 .then(
                     (response) => {
-                        console.log("Uspješno");
+                        setResponseMessage(response.data);
+                        setSnackbarSeverity("success");
                     },
                     (error) => {
-                        console.log("Error", error);
+                        setResponseMessage(error.response.data);
+                        setSnackbarSeverity("error");
                     }
                 );
         }
@@ -62,10 +67,12 @@ function CategoryManipulator(props) {
                 })
                 .then(
                     (response) => {
-                        console.log("Uspješno");
+                        setResponseMessage(response.data);
+                        setSnackbarSeverity("success");
                     },
                     (error) => {
-                        console.log("Error", error);
+                        setResponseMessage(error.response.data);
+                        setSnackbarSeverity("error");
                     }
                 );
         }
@@ -75,45 +82,54 @@ function CategoryManipulator(props) {
     }
 
     return (
-        <Popover
-            open={open}
-            anchorEl={anchorEl}
-            onClose={props.onClose}
-            anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-            }}
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-        >
-            <FormControl className="categoryFormFrame" variant="outlined">
-                <OutlinedInput
-                    id="categoryFormInput"
-                    type="text"
-                    placeholder="Enter a category name..."
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                onClick={
-                                    props.action === "add"
-                                        ? addCategory
-                                        : deleteCategory
-                                }
-                                edge="end"
-                            >
-                                {props.action === "add" ? (
-                                    <AddCircle id="icon" />
-                                ) : (
-                                    <Delete id="icon" />
-                                )}
-                            </IconButton>
-                        </InputAdornment>
-                    }
+        <div>
+            <Popover
+                open={open}
+                anchorEl={anchorEl}
+                onClose={props.onClose}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                }}
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                }}
+            >
+                <FormControl className="categoryFormFrame" variant="outlined">
+                    <OutlinedInput
+                        id="categoryFormInput"
+                        type="text"
+                        placeholder="Enter a category name..."
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={
+                                        props.action === "add"
+                                            ? addCategory
+                                            : deleteCategory
+                                    }
+                                    edge="end"
+                                >
+                                    {props.action === "add" ? (
+                                        <AddCircle id="icon" />
+                                    ) : (
+                                        <Delete id="icon" />
+                                    )}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
+            </Popover>
+            {responseMessage !== "" ? (
+                <CustomSnackbar
+                    message={responseMessage}
+                    severity={snackbarSeverity}
+                    setResponseMessage={setResponseMessage}
                 />
-            </FormControl>
-        </Popover>
+            ) : null}
+        </div>
     );
 }
 

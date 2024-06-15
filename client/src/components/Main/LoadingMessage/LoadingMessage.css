@@ -1,0 +1,27 @@
+.loading {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 120px;
+    padding-bottom: 110px;
+}
+
+.text1 {
+    margin-bottom: 5px;
+}
+
+.text2 {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.progress {
+    background-color: white;
+}
+
+@media screen and (max-width: 480px) {
+    .loading {
+        padding-top: 70%;
+        font-size: 20px;
+    }
+}

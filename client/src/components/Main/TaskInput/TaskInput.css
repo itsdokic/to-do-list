@@ -7,6 +7,10 @@
     font-size: 30px;
 }
 
+#formInput:placeholder-shown {
+    text-overflow: ellipsis;
+}
+
 .select {
     font-size: 25px;
     width: 150px;
@@ -35,7 +39,7 @@
 }
 
 .select .addCategory {
-    color: rgb(0, 83, 0)
+    color: rgb(0, 83, 0);
 }
 
 .select .deleteCategory {
@@ -48,16 +52,18 @@
 
 .formFrame .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
     border-color: rgba(255, 255, 255, 0.63);
-    border-width: 1px; 
-    border-style: solid; 
-    border-radius: 20px; 
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 20px;
     box-shadow: none;
 }
-  
-.formFrame .MuiOutlinedInput-root:not(.Mui-focused):hover .MuiOutlinedInput-notchedOutline {
+
+.formFrame
+    .MuiOutlinedInput-root:not(.Mui-focused):hover
+    .MuiOutlinedInput-notchedOutline {
     border-color: white;
 }
-  
+
 .formFrame .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: white;
 }
@@ -74,7 +80,7 @@
     color: white;
 }
 
-.formFrame .MuiSvgIcon-root {
+.formFrame .addIcon {
     font-size: 40px;
 }
 
@@ -94,15 +100,16 @@
 @media screen and (max-width: 900px) {
     #formInput {
         height: 15px;
-        font-size: 20px;
+        font-size: 15px;
     }
-    .formFrame .MuiSvgIcon-root {
+    .formFrame .addIcon {
         font-size: 30px;
     }
     .select {
         font-size: 10px;
         width: 70px;
         margin-right: 0;
+        padding: 0;
         height: 45px;
     }
     #validationMessage {

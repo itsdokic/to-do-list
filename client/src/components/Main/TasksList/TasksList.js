@@ -1,12 +1,16 @@
 import React from "react";
 
-import Task from "./Task/Task.js";
 import axios from "axios";
+
+import CustomSnackbar from "../../common/CustomSnackbar/CustomSnackbar.js";
+import Task from "./Task/Task.js";
 
 import "./TasksList.css";
 
 function TasksList(props) {
     const userId = localStorage.getItem("userId");
+    const [responseMessage, setResponseMessage] = React.useState("");
+    const [snackbarSeverity, setSnackbarSeverity] = React.useState("");
 
     function filterTasks(event) {
         props.setTasksFilter(event.target.value);
@@ -77,7 +81,12 @@ function TasksList(props) {
             <p className="tasksTitle">FAVORITE TASKS</p>
             {props.tasks.favorite.length > 0 ? (
                 props.tasks.favorite.map((task, index) => (
-                    <Task task={task} getTasks={() => props.getTasks(userId)} />
+                    <Task
+                        task={task}
+                        getTasks={() => props.getTasks(userId)}
+                        setResponseMessage={setResponseMessage}
+                        setSnackbarSeverity={setSnackbarSeverity}
+                    />
                 ))
             ) : (
                 <p className="noTasks">No favorite tasks</p>
@@ -86,7 +95,12 @@ function TasksList(props) {
             <p className="tasksTitle">UNCOMPLETED TASKS</p>
             {props.tasks.uncompleted.length > 0 ? (
                 props.tasks.uncompleted.map((task, index) => (
-                    <Task task={task} getTasks={() => props.getTasks(userId)} />
+                    <Task
+                        task={task}
+                        getTasks={() => props.getTasks(userId)}
+                        setResponseMessage={setResponseMessage}
+                        setSnackbarSeverity={setSnackbarSeverity}
+                    />
                 ))
             ) : (
                 <p className="noTasks">No uncompleted tasks</p>
@@ -101,6 +115,8 @@ function TasksList(props) {
                             <Task
                                 task={task}
                                 getTasks={() => props.getTasks(userId)}
+                                setResponseMessage={setResponseMessage}
+                                setSnackbarSeverity={setSnackbarSeverity}
                             />
                         )
                     )
@@ -108,6 +124,14 @@ function TasksList(props) {
             ) : (
                 <p className="noTasks">No completed tasks</p>
             )}
+
+            {responseMessage !== "" ? (
+                <CustomSnackbar
+                    message={responseMessage}
+                    severity={snackbarSeverity}
+                    setResponseMessage={setResponseMessage}
+                />
+            ) : null}
         </div>
     );
 }

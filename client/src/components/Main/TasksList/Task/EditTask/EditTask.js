@@ -10,10 +10,13 @@ import {
 import { Check, Edit } from "@mui/icons-material";
 import axios from "axios";
 
+import CustomSnackbar from "../../../../common/CustomSnackbar/CustomSnackbar";
 import "./EditTask.css";
 
 function EditTask(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [responseMessage, setResponseMessage] = React.useState("");
+    const [snackbarSeverity, setSnackbarSeverity] = React.useState("");
 
     function openEditTask(event) {
         setAnchorEl(event.currentTarget);
@@ -39,10 +42,12 @@ function EditTask(props) {
                 })
                 .then(
                     (response) => {
-                        console.log("Uspješno");
+                        setResponseMessage(response.data);
+                        setSnackbarSeverity("success");
                     },
                     (error) => {
-                        console.log("Error", error);
+                        setResponseMessage(error.response.data);
+                        setSnackbarSeverity("error");
                     }
                 );
         }
@@ -54,7 +59,7 @@ function EditTask(props) {
     return (
         <div>
             <IconButton onClick={openEditTask}>
-                <Edit />
+                <Edit className="icon" />
             </IconButton>
             <Popover
                 open={open}
@@ -78,13 +83,20 @@ function EditTask(props) {
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton onClick={editTask} edge="end">
-                                    <Check id="editIcon" />
+                                    <Check className="editIcon" />
                                 </IconButton>
                             </InputAdornment>
                         }
                     />
                 </FormControl>
             </Popover>
+            {responseMessage !== "" ? (
+                <CustomSnackbar
+                    message={responseMessage}
+                    severity={snackbarSeverity}
+                    setResponseMessage={setResponseMessage}
+                />
+            ) : null}
         </div>
     );
 }

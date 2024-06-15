@@ -6,11 +6,10 @@
     font-size: 20px;
 }
 
-#editIcon {
+.editIcon {
     font-size: 30px;
     color: black;
 }
-
 
 @media screen and (max-width: 900px) {
     .editFormFrame {
