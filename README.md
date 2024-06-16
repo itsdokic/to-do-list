@@ -65,7 +65,21 @@ To get the application running locally, follow these steps:
    - In the terminal, navigate to the client directory.
      - Run `npm start` to start the client side.
 6. **View the Application:**
-   - Once the server and client side are running, open your web browser and go to `http://localhost:3000` to view the application.
+   - Once the server and client side are running, open your web browser and go to `http://localhost:3000` to view the application.  
+  
+##  Libraries and Dependencies  
+  
+### Backend (server)
+- Express: Web framework for Node.js.
+- Mongoose: MongoDB object modeling tool.dotenv: Loads environment variables from a .env file.
+- cors: Middleware for enabling Cross-Origin Resource Sharing.  
+  
+### Frontend (client)
+- React: JavaScript library for building user interfaces.  
+- axios: Promise-based HTTP client for making requests to the backend.  
+- react-router-dom: Declarative routing for React applications.  
+- classnames: Utility for conditionally joining class names.  
+- @mui/material: React components that implement Google's Material Design.
 
 
 
