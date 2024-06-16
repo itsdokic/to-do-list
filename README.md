@@ -45,7 +45,27 @@ The server-side code is located in the `server` directory and is structured as f
 
 To get the application running locally, follow these steps:
 
-1. **Install Required Tools:**:
-   ▪︎ Install Node.js on your machine.  
-   ▪︎ Install MongoDB and start the MongoDB server.  
+1. **Install Required Tools:**
+   - Install Node.js on your machine.
+   - Install MongoDB and start the MongoDB server.
+2. **Clone this GitHub repository to your local machine.**
+3. **Install Dependencies:**
+   - Open a terminal.
+   - Navigate to the client directory.
+     - Run npm install in the terminal to install all necessary packages for client side. 
+   - Navigate to the server directory.
+      - Run npm install in the terminal to install all necessary packages for server side.
+4. **Configure the Database:**
+   - Inside the server directory, create a .env file and add the following lines:
+     - ATLAS_URI = mongodb://localhost:27017/my_database (Replace `mongodb://localhost:27017/my_database` with your MongoDB connection URI.)
+     - PORT = 5000
+5. **Start the Development Server:**
+   - In the terminal, navigate to the server directory.
+     - Run `npm start` to start the server side.
+   - In the terminal, navigate to the client directory.
+     - Run `npm start` to start the client side.
+6. **View the Application:**
+   - Once the server and client side are running, open your web browser and go to `http://localhost:3000` to view the application.
+
+
 
