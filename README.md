@@ -1,4 +1,4 @@
-# To Do List App (version 2) for Industrial Internship at HulkApps.
+# To Do List App for Industrial Internship at HulkApps.
 
 ## Project Architecture
 
@@ -80,6 +80,9 @@ To get the application running locally, follow these steps:
 - react-router-dom: Declarative routing for React applications.  
 - classnames: Utility for conditionally joining class names.  
 - @mui/material: React components that implement Google's Material Design.
+
+## Live Demo
+[Click here to try the application](https://to-do-list-hulk-apps.netlify.app/)
 
 
 
